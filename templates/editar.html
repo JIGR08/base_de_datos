@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card p-3">
+  <h3>Editar registro #{{ registro_id }}</h3>
+  <form method="post">
+    {% for c in campos %}
+      <div class="mb-3">
+        <label class="form-label">{{ c.nombre }}</label>
+        {% set val = valores.get(c.id) %}
+        {% if c.tipo == 'number' %}
+          <input class="form-control" type="number" step="0.01" name="field_{{ c.id }}" value="{{ val or '' }}">
+        {% elif c.tipo == 'date' %}
+          <input class="form-control" type="date" name="field_{{ c.id }}" value="{{ val or '' }}">
+        {% else %}
+          <input class="form-control" type="text" name="field_{{ c.id }}" value="{{ val or '' }}">
+        {% endif %}
+      </div>
+    {% endfor %}
+    <button class="btn btn-primary">Guardar cambios</button>
+    <a class="btn btn-secondary" href="/">Cancelar</a>
+  </form>
+</div>
+{% endblock %}
+

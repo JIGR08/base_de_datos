@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card p-4 mx-auto" style="max-width:420px">
+  <div class="text-center mb-3">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/9/9a/Conalep_logo.png" alt="CONALEP" style="height:64px">
+    <div class="mt-2 text-muted">Base de Datos – CONALEP</div>
+  </div>
+
+  <form method="post">
+    <div class="mb-3">
+      <label>Email</label>
+      <input type="email" class="form-control" name="email" required>
+    </div>
+    <div class="mb-3">
+      <label>Contraseña</label>
+      <input type="password" class="form-control" name="password" required>
+    </div>
+    <button class="btn btn-primary w-100">Entrar</button>
+    <div class="mt-3 text-center">
+      <a href="/register">Crear cuenta</a>
+    </div>
+  </form>
+</div>
+{% endblock %}
+

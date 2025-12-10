@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card p-4">
+  <h3>Crear cuenta (CONALEP)</h3>
+  <form method="post">
+    <div class="mb-3">
+      <label>Nombre de la empresa</label>
+      <input class="form-control" name="company" required>
+    </div>
+    <div class="mb-3">
+      <label>Email</label>
+      <input type="email" class="form-control" name="email" required>
+    </div>
+    <div class="mb-3">
+      <label>Contraseña</label>
+      <input type="password" class="form-control" name="password" required>
+    </div>
+    <button class="btn btn-primary">Crear cuenta</button>
+    <a class="btn btn-link" href="/login">Ya tengo cuenta</a>
+  </form>
+</div>
+{% endblock %}
+

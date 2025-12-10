@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row">
+  <div class="col-md-6">
+    <div class="card p-3">
+      <h4>Campos</h4>
+      <form method="post" action="/campos/add" class="row g-2 align-items-center">
+        <div class="col">
+          <input name="nombre" class="form-control" placeholder="Nombre del campo (ej. abono1)" required>
+        </div>
+        <div class="col-auto">
+          <select name="tipo" class="form-select">
+            <option value="text">Texto</option>
+            <option value="number">Número</option>
+            <option value="date">Fecha</option>
+          </select>
+        </div>
+        <div class="col-auto">
+          <button class="btn btn-primary">Agregar campo</button>
+        </div>
+      </form>
+
+      <hr>
+      <ul class="list-group">
+        {% for c in campos %}
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          {{ c.nombre }} <span class="badge bg-secondary">{{ c.tipo }}</span>
+          <form method="post" action="/campos/delete/{{ c.id }}" style="display:inline">
+            <button class="btn btn-sm btn-danger" onclick="return confirm('Eliminar campo y todos sus valores?')">Eliminar</button>
+          </form>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <div class="card p-3">
+      <h4>Registros</h4>
+      <p>Elimina registros si lo deseas.</p>
+      <ul class="list-group">
+        {% for r in registros %}
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          Registro #{{ r.id }}
+          <form method="post" action="/registros/delete/{{ r.id }}" style="display:inline">
+            <button class="btn btn-sm btn-danger" onclick="return confirm('Eliminar registro?')">Eliminar</button>
+          </form>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+</div>
+{% endblock %}
+

@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card p-3">
+  <h3>Registros</h3>
+  <div class="table-responsive">
+    <table class="table table-dark table-striped align-middle">
+      <thead>
+        <tr>
+          <th>ID</th>
+          {% for c in campos %}
+            <th>{{ c.nombre }}</th>
+          {% endfor %}
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for r in registros %}
+        <tr>
+          <td>{{ r.id }}</td>
+          {% for c in campos %}
+            <td>{{ r.valores[c.nombre] if c.nombre in r.valores else '' }}</td>
+          {% endfor %}
+          <td>
+            <a class="btn btn-sm btn-outline-light" href="/editar/{{ r.id }}">Editar</a>
+            <form style="display:inline" method="post" action="/registros/delete/{{ r.id }}">
+              <button class="btn btn-sm btn-danger" onclick="return confirm('Borrar registro?')">Borrar</button>
+            </form>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}
+

@@ -1,0 +1,25 @@
+/* Premium navy theme */
+:root{
+  --navy:#071020;
+  --panel:#0f1724;
+  --accent:#1f3c88;
+  --muted:#9aa6b2;
+  --danger:#e25454;
+}
+body{
+  background: linear-gradient(180deg,#061025 0%,#081426 100%);
+  color:#e6eef8;
+  font-family: Inter, "Segoe UI", Arial, sans-serif;
+  margin:0;
+}
+.navbar{background:var(--navy) !important;padding:12px 18px}
+.navbar-brand{font-weight:700;color:var(--accent)}
+.container{max-width:1100px;margin:24px auto;padding:0 16px}
+.card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.03);padding:18px;border-radius:12px;box-shadow:0 10px 30px rgba(2,6,23,0.6)}
+.btn-primary{background:var(--accent);border-color:rgba(255,255,255,0.04)}
+.btn-outline-light{color:#cfe3ff;border-color:rgba(255,255,255,0.06)}
+.table-dark{background:transparent}
+.table thead th{color:#cfe3ff;border-bottom:1px solid rgba(255,255,255,0.04)}
+.table tbody td{color:#d5e6ff}
+.form-control{background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.03);color:#e8f2ff}
+.list-group-item{background:transparent;border:1px solid rgba(255,255,255,0.02);color:#dbeeff;margin-bottom:8px;border-radius:8px}

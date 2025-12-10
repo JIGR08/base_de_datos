@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>{% if company %}{{ company }} — Base{% else %}Base de Datos{% endif %}</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<link rel="manifest" href="/static/manifest.json">
+<meta name="theme-color" content="#0d1533">
+
+<body>
+  <nav class="navbar navbar-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/">📘 Base de Datos – CONALEP</a>
+      <div>
+        {% if session.user_id %}
+          <span class="me-3 text-muted">{{ session.company_name }}</span>
+          <a class="btn btn-outline-light me-2" href="/manage">Editar tabla</a>
+          <a class="btn btn-primary me-2" href="/agregar">Agregar registro</a>
+          <a class="btn btn-secondary" href="/logout">Cerrar sesión</a>
+        {% else %}
+          <a class="btn btn-outline-light me-2" href="/login">Iniciar sesión</a>
+          <a class="btn btn-primary" href="/register">Registrarse</a>
+        {% endif %}
+      </div>
+    </div>
+  </nav>
+
+  <div class="container my-4">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for cat, msg in messages %}
+          <div class="alert alert-{{ 'warning' if cat=='warning' else ('success' if cat=='success' else ('danger' if cat=='danger' else 'info')) }}" role="alert">
+            {{ msg }}
+          </div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+    {% block content %}{% endblock %}
+  </div>
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/static/sw.js')
+      .then(() => console.log('Service Worker registrado'))
+      .catch(err => console.log('Error registrando SW:', err));
+  }
+</script>
+</body>
+</html>
+
