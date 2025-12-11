@@ -131,20 +131,45 @@ def logout():
 # ---------- Helpers company ----------
 def company_conn():
     db = session.get("company_db")
-    if not db or not os.path.exists(db):
+    if not db:
+        print("Error: session['company_db'] no está definido")
+        return None
+    if not os.path.exists(db):
+        print(f"Error: archivo de base de datos no encontrado en {db}")
         return None
     conn = sqlite3.connect(db)
     conn.row_factory = sqlite3.Row
     return conn
 
-def get_campos():
+@app.route("/campos/add", methods=["POST"])
+@login_required
+def campos_add():
+    nombre = request.form.get("nombre","").strip()
+    tipo = request.form.get("tipo","text").strip()
+    
+    if nombre == "":
+        flash("Nombre requerido", "danger")
+        return redirect(url_for("manage"))
+
     conn = company_conn()
     if not conn:
-        return []
-    cur = conn.execute("SELECT id, nombre, tipo FROM campos ORDER BY id")
-    campos = [dict(r) for r in cur.fetchall()]
-    conn.close()
-    return campos
+        flash("Base de datos no disponible", "danger")
+        return redirect(url_for("manage"))
+
+    cur = conn.cursor()
+    try:
+        cur.execute("INSERT INTO campos (nombre, tipo) VALUES (?, ?)", (nombre, tipo))
+        conn.commit()
+        flash(f"Campo '{nombre}' agregado", "success")
+    except sqlite3.IntegrityError:
+        flash("El campo ya existe", "warning")
+    except Exception as e:
+        flash(f"Error interno al agregar campo: {e}", "danger")
+        print("Error al agregar campo:", e)
+    finally:
+        conn.close()
+
+    return redirect(url_for("manage"))
 
 def get_registros():
     conn = company_conn()
